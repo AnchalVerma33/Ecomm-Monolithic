@@ -19,7 +19,7 @@ class CartModel {
           type: DataTypes.UUID,
           references: {
             model: 'Users',
-            key: "uuid",
+            key: "id",
           },
           allowNull: false,
         },

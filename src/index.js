@@ -6,6 +6,7 @@ require("colors");
 
 const { connectDB } = require("./database/connect");
 const { Models, User, Product, Order, OrderItems, Cart } = require("./database/models");
+const ErrorHandler = require("./utils/errors/error-handler");
 
 const StartServer = async () => {
 	try {

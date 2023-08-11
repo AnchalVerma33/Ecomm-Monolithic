@@ -18,7 +18,7 @@ class OrderModel {
           type: DataTypes.UUID,
           references: {
             model: 'Users',
-            key: "uuid",
+            key: "id",
           },
         },
         orderDate: {

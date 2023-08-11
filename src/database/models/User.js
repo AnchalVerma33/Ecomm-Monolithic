@@ -8,7 +8,7 @@ class UserModel {
     this.schema = this.db.define(
       "User",
       {
-        uuid: {
+        id: {
           type: DataTypes.UUID,
           defaultValue: DataTypes.UUIDV4,
           allowNull: false,
@@ -39,6 +39,12 @@ class UserModel {
         },
         gender: {
           type: DataTypes.STRING(255),
+        },
+        salt :{
+          type : DataTypes.STRING(255),
+        },
+        address:{
+          type : DataTypes.STRING(355),
         },
         createdAt: {
           type: DataTypes.DATE,
