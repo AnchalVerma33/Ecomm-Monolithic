@@ -77,6 +77,7 @@ class UserController{
     }
 
 
+    
     // Update User
     updateUserProfile = async (req,res,next) => {
         try{
