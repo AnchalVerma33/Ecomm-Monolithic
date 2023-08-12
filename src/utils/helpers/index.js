@@ -114,7 +114,21 @@ const ValidateSignature = async(req) => {
         throw new AuthorizationError(`User Not Authorized ${e}`);
     }
 
+    const CanSendOtp = async(redisClient,key) => {
+        return new Promise(async(resolve,reject) => {
+            try{
+                const data = {};
+                const ttl = await redisClient.RedisTTL(key);
+                data["remainingTime"] = ttl;
+                data["canSend"] = ttl == 0 || ttl == -2 ? true : false;
+                resolve(data);
+            }catch(e) {
+                reject(e);
+            }
+        })
+    }
+
 }
 
 
-module.exports = { FilterValues, ValidateEmail, ValidatePassword, GenerateSalt, GeneratePassword, GenerateUUID, FormatData, ComparePass, GenerateToken, ValidateSignature};
+module.exports = { FilterValues, ValidateEmail, ValidatePassword, GenerateSalt, GeneratePassword, GenerateUUID, FormatData, ComparePass, GenerateToken, ValidateSignature, CanSendOtp};
