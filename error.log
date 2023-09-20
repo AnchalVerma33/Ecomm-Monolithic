@@ -1,0 +1,24 @@
+[ [36m2023-09-20 19:32:51:3251[39m ]  [31mName : SyntaxError | Descriptiion : undefined | Status Code : 400 | IsOperational : undefined[39m
+[ [36m2023-09-20 19:37:15:3715[39m ]  [31mName : Error: Unable to create Password Error: data and salt arguments required | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-09-20 19:46:57:4657[39m ]  [31mName : Error: data and hash arguments required | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-09-20 19:48:12:4812[39m ]  [31mName : Error: data and hash arguments required | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-09-20 19:50:18:5018[39m ]  [31mName : Error: data and hash arguments required | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-09-20 19:51:54:5154[39m ]  [31mName : Error: data and hash arguments required | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-09-20 19:52:33:5233[39m ]  [31mName : Error: data and hash arguments required | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-09-20 19:53:40:5340[39m ]  [31mName : Error: data and hash arguments required | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-09-20 19:56:01:561[39m ]  [31mName : Error: data and hash arguments required | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-09-20 20:21:14:2114[39m ]  [31mName : UN_AUTHORISED | Descriptiion : undefined | Status Code : 403 | IsOperational : true[39m
+[ [36m2023-09-20 20:26:06:266[39m ]  [31mName : UN_AUTHORISED | Descriptiion : undefined | Status Code : 403 | IsOperational : true[39m
+[ [36m2023-09-20 20:30:10:3010[39m ]  [31mName : UN_AUTHORISED | Descriptiion : undefined | Status Code : 403 | IsOperational : true[39m
+[ [36m2023-09-20 20:31:16:3116[39m ]  [31mName : UN_AUTHORISED | Descriptiion : undefined | Status Code : 403 | IsOperational : true[39m
+[ [36m2023-09-20 20:31:50:3150[39m ]  [31mName : UN_AUTHORISED | Descriptiion : undefined | Status Code : 403 | IsOperational : true[39m
+[ [36m2023-09-20 20:32:08:328[39m ]  [31mName : TypeError | Descriptiion : undefined | Status Code : undefined | IsOperational : undefined[39m
+[ [36m2023-09-20 20:34:26:3426[39m ]  [31mName : ReplyError | Descriptiion : undefined | Status Code : undefined | IsOperational : undefined[39m
+[ [36m2023-09-20 20:37:21:3721[39m ]  [31mName : ReplyError | Descriptiion : undefined | Status Code : undefined | IsOperational : undefined[39m
+[ [36m2023-09-20 20:38:13:3813[39m ]  [31mName : ReplyError | Descriptiion : undefined | Status Code : undefined | IsOperational : undefined[39m
+[ [36m2023-09-20 20:59:10:5910[39m ]  [31mName : TypeError | Descriptiion : undefined | Status Code : undefined | IsOperational : undefined[39m
+[ [36m2023-09-20 21:03:48:348[39m ]  [31mName : TypeError | Descriptiion : undefined | Status Code : undefined | IsOperational : undefined[39m
+[ [36m2023-09-20 21:04:46:446[39m ]  [31mName : TypeError | Descriptiion : undefined | Status Code : undefined | IsOperational : undefined[39m
+[ [36m2023-09-20 21:06:44:644[39m ]  [31mName : TypeError | Descriptiion : undefined | Status Code : undefined | IsOperational : undefined[39m
+[ [36m2023-09-20 21:07:47:747[39m ]  [31mName : TypeError | Descriptiion : undefined | Status Code : undefined | IsOperational : undefined[39m
+[ [36m2023-09-20 21:07:57:757[39m ]  [31mName : TypeError | Descriptiion : undefined | Status Code : undefined | IsOperational : undefined[39m

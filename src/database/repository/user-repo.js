@@ -50,7 +50,7 @@ class UserRepository {
 
   async FindUserCount(filter){
     try{
-        const count = this.User.count({where : filter});
+        const count = await this.User.count({where : filter});
         return count;
     }
     catch(e) {
@@ -67,7 +67,7 @@ class UserRepository {
 
   async FindOneUser(filter){
     try{
-        const user = this.User.findOne({where : filter});
+        const user = await this.User.findOne({where : filter});
         return user.dataValues;
     }
     catch(e) {
@@ -75,6 +75,28 @@ class UserRepository {
             "API Error",
             STATUS_CODES.INTERNAL_ERROR,
             `Error while fetching Users count ${e}`
+        );
+    }
+  }
+
+  // Update User details
+
+  async UpdateUserDetails(id, updateDetails, returnUpdatedDetails=true) {
+    try{
+        const [updatedCount, updatedUsers] = await this.User.update(
+            updateDetails,
+            {
+                where : {id},
+                returning : returnUpdatedDetails,
+            }
+        );
+        const user = updatedUsers[0].dataValues;
+        return user; 
+    } catch(e) {
+        throw new APIError(
+            "API Error",
+            STATUS_CODES.INTERNAL_ERROR,
+            `Error while updating the user details ${e}`
         );
     }
   }

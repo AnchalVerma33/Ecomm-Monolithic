@@ -59,7 +59,7 @@ class UserService{
 
 
             const salt = await GenerateSalt();
-            const userPassword = await GeneratePassword(salt);
+            const userPassword = await GeneratePassword(password,salt);
             const id = GenerateUUID();
 
             const newUser = await this.repository.CreateUser(
@@ -102,7 +102,7 @@ class UserService{
            ValidateEmail(email);
            ValidatePassword(password);
 
-           const existingUser = this.repository.FindOneUser({ email });
+           const existingUser = await this.repository.FindOneUser({ email });
            if(!existingUser){
             throw new BadRequestError(`User dosen't exist`)
            }
@@ -116,7 +116,7 @@ class UserService{
            }
 
            // Generate Token
-           const token = GenerateToken({email : existingUser.email, id : existingUser.id});
+           const token = await GenerateToken({email : existingUser.email, id : existingUser.id});
 
 
            return FormatData({
@@ -132,6 +132,73 @@ class UserService{
     }
 
   } 
+
+  // User Profile 
+
+  async UserProfile(id){
+    try{
+        const existingUser = await this.repository.FindOneUser({id});
+        const formattedData =  {
+            id : existingUser.id,
+            email : existingUser.email,
+            first_name : existingUser.firstName,
+            last_name : existingUser.lastName,
+            phoneNumber : existingUser.phoneNumber,
+        }
+
+        if(existingUser.address){
+            formattedData.address = existingUser.address;
+        }
+        return FormatData(formattedData);
+    } catch (e) {
+        throw new APIError(e, e.statusCode);
+    }
+  }
+
+
+  // Update User
+
+  async UpdateUser(id, updates) {
+    try{
+        const filterUpdates = {};
+        
+        for(let key in updates){
+            if(updates[key] !== null){
+                filterUpdates[key] = updates[key];
+            }
+        }
+        FilterValues(
+            ["email", "phone_number", "password"],
+            [null, ""],
+            filterUpdates
+        );
+
+        if(filterUpdates.phoneNumber && (await this.repository.FindUserCount({phoneNumber : filterUpdates.phoneNumber})) > 0){
+            throw new BadRequestError(`Number already exist`);
+        }
+
+        if(filterUpdates.email && (await this.repository.FindUserCount({email : filterUpdates.email})) > 0){
+            throw new BadRequestError(`Email already exist`);
+        }
+
+        if(filterUpdates.password){
+            const salt = await GenerateSalt();
+            const userPassword = await GeneratePassword(
+                filterUpdates.password,
+                salt
+            );
+            filterUpdates.password = userPassword;
+        }
+
+        const user = await this.repository.UpdateUserDetails(id, filterUpdates);
+        delete user["salt"];
+        delete user["password"];
+        return user;
+    } catch(e) {
+        throw new APIError(e, e.statusCode);
+    }
+
+  }
 }
 
 

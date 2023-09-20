@@ -6,19 +6,15 @@ require("colors");
 
 const { connectDB } = require("./database/connect");
 const { Models, User, Product, Order, OrderItems, Cart } = require("./database/models");
-const ErrorHandler = require("./utils/errors/error-handler");
+const expressApp = require("./express-engine");
 
 const StartServer = async () => {
 	try {
 		const app = express();
 		const dbConnection = await connectDB();
 		const models = new Models(dbConnection);
-        const user = new User()
-        const order = new Order()
-        const product = new Product()
-        const orderItems  = new OrderItems()
-        const cart = new Cart()
         await models.migrate(true);
+		expressApp(app);
 		app.listen(PORT, () => {
 			console.log(`Customer server running to port ${PORT}`.yellow);
 			console.log(`http://localhost:${PORT}`.yellow);

@@ -1,8 +1,9 @@
-const { BadRequestError } = require("../errors/app-errors");
+const { BadRequestError, AuthorizationError } = require("../errors/app-errors");
 const crypto = require('crypto')
 const bcrypt = require('bcrypt')
 const { v4: uuid } = require("uuid");
 const jwt = require("jsonwebtoken");
+const { APP_SECRET } = require("../../config");
 require("dotenv").config({ path: "./config/.env" });
 
 const FilterValues = (fields, not_allowed_values, obj) =>{
@@ -96,4 +97,24 @@ const GenerateToken = async (payload) => {
 }
 
 
-module.exports = { FilterValues, ValidateEmail, ValidatePassword, GenerateSalt, GeneratePassword, GenerateUUID, FormatData, ComparePass, GenerateToken};
+const ValidateSignature = async(req) => {
+    try{
+        const APP_SECRET = process.env.APP_SECRET;
+        const signature = req.get("Authorization");
+
+        if(signature){
+            const payload = jwt.verify(signature.split(" ")[1],APP_SECRET);
+            req.user = payload;
+            return req.user;
+        }
+        else{
+            throw new AuthorizationError(`No token found`);
+        }
+    } catch (e){
+        throw new AuthorizationError(`User Not Authorized ${e}`);
+    }
+
+}
+
+
+module.exports = { FilterValues, ValidateEmail, ValidatePassword, GenerateSalt, GeneratePassword, GenerateUUID, FormatData, ComparePass, GenerateToken, ValidateSignature};
