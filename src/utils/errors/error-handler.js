@@ -1,3 +1,4 @@
+const { error } = require("winston");
 const { logger } = require("../logger");
 const { AppError } = require('./app-errors')
 
@@ -26,9 +27,10 @@ class ErrorLog {
 
 const ErrorHandler = async(err, req, res, next) =>{
     const errorLog = new ErrorLog();
+    let error = {}
     if(err){
         console.log(err)
-        const error = {
+        error = {
 			name: err.name,
 			description: err.description,
 			statusCode: err.statusCode,
@@ -38,7 +40,8 @@ const ErrorHandler = async(err, req, res, next) =>{
 		};
         errorLog.logError(error)
     }
-    next();
+    res.statusCode = error.statusCode || 500
+    return res.json({success : false, error})
 }
 
 

@@ -10,12 +10,13 @@ class OrderModel {
       "Orders",
       {
         orderID: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
           primaryKey: true,
-          autoIncrement: true,
+          allowNull: false,
+          unique : true
         },
         userID: {
-          type: DataTypes.UUID,
+          type: DataTypes.STRING,
           references: {
             model: 'Users',
             key: "id",

@@ -8,19 +8,21 @@ class OrderItemsModel {
       "OrderItems",
       {
         orderItemID: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
           primaryKey: true,
-          autoIncrement: true,
+          allowNull: false,
+          unique : true
         },
         orderID: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
+          allowNull: false,
           references: {
             model: 'Orders',
             key: "orderID",
           },
         },
         productID: {
-          type: DataTypes.UUID,
+          type: DataTypes.STRING,
           references: {
             model: 'Products',
             key: "productID",

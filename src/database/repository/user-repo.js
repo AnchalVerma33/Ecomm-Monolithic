@@ -2,12 +2,12 @@ const { APIError,
     BadRequestError,
 	STATUS_CODES,
  } = require("../../utils/errors/app-errors");
-const UserModel = require("../models/User");
-const connectDB = require("../connect")
+const connectDB = require("../connect");
+const { User } = require("../models");
 
 class UserRepository {
   constructor() {
-    this.User = new UserModel().schema;
+    this.User = new User().schema;
   }
 
 
@@ -67,7 +67,10 @@ class UserRepository {
 
   async FindOneUser(filter){
     try{
-        const user = await this.User.findOne({where : filter});
+        const user = await this.User.findOne({where : filter})
+        if(!user){
+          return null
+        }
         return user.dataValues;
     }
     catch(e) {
@@ -98,6 +101,22 @@ class UserRepository {
             STATUS_CODES.INTERNAL_ERROR,
             `Error while updating the user details ${e}`
         );
+    }
+  }
+
+
+  async DeleteUserProfile(filter){
+    try{
+      console.log("Delete User \n")
+      await this.User.destroy({where : filter})
+      return {success : true}
+    }catch(e){
+      throw new APIError(
+        "API Error",
+        STATUS_CODES.INTERNAL_ERROR,
+        `Error while deleting user :  ${e}`
+    );
+
     }
   }
 

@@ -1,18 +1,22 @@
 const nodemailer = require("nodemailer");
+const { EMAIL_PASS } = require("../../config")
 
 class SendEmail{
     constructor() {
-        this.transporter = this.CreateTransporter();
+        return new Promise(async(resolve,reject) => {
+            this.transporter = await this.CreateTransporter();
+            resolve(this.transporter);
+        }) 
     }
 
-    CreateTransport(){
+    CreateTransporter(){
         return new Promise(async(resolve,reject) => {
             try{
                 const transporter = nodemailer.createTransport({
                     service: 'Gmail',
                     auth: {
-                      user: 'your-email@gmail.com',
-                      pass: 'your-password',
+                      user: 'vanchal964@gmail.com',
+                      pass: EMAIL_PASS,
                     },
                   });
                   resolve(transporter);
@@ -40,8 +44,8 @@ class SendEmail{
         return new Promise(async(resolve,reject) => {
             try{
                 const mailFormat = {
-                    from: 'your-email@gmail.com',
-                    to: 'recipient-email@example.com',
+                    from: 'vanchal965@gmail.com',
+                    to: 'workav33@gmail.com',
                     subject: 'Welcome to our Shopping App - Account Verification',
                     text: message,
                 }

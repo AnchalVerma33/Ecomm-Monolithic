@@ -9,8 +9,10 @@ const config = {
 	DB_USERNAME: process.env.DBUSERNAME,
 	DB_PASSWORD: process.env.DBPASSWORD,
 	DB_NAME: process.env.DBNAME,
+	DB_PORT: process.env.DBPORT,
 	REDIS_PORT : process.env.REDIS_PORT,
-	REDIS_HOST : process.env.REDIS_HOST
+	REDIS_HOST : process.env.REDIS_HOST,
+	EMAIL_PASS : process.env.EMAIL_PASS
 };
 
 module.exports = config;

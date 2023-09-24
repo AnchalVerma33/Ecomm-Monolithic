@@ -7,10 +7,10 @@ class ProductModel {
     console.log("This is Product")
     this.schema = this.db.define('Product', {
       productID: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
+        unique : true
       },
       productName: {
         type: DataTypes.STRING,

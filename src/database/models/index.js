@@ -7,6 +7,10 @@ const Product = require("./Product");
 class Models {
   constructor(db) {
     this.db = db;
+    // this.user = new User(),
+    this.product = new Product(),
+    this.order = new Order(),
+    this.orderItems = new OrderItems()
   }
 
   async migrate(force) {

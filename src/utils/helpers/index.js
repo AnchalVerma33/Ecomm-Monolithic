@@ -66,8 +66,8 @@ const ValidateEmail = (email) => {
 };
 
 const GenerateUUID = () => {
-	let id = uuid();
-	return id;
+  let id = uuid();
+  return id.replace(/-/g, '');
 };
 
 const FormatData = (data) => {
@@ -113,6 +113,7 @@ const ValidateSignature = async(req) => {
     } catch (e){
         throw new AuthorizationError(`User Not Authorized ${e}`);
     }
+}
 
     const CanSendOtp = async(redisClient,key) => {
         return new Promise(async(resolve,reject) => {
@@ -128,7 +129,6 @@ const ValidateSignature = async(req) => {
         })
     }
 
-}
 
 
-module.exports = { FilterValues, ValidateEmail, ValidatePassword, GenerateSalt, GeneratePassword, GenerateUUID, FormatData, ComparePass, GenerateToken, ValidateSignature, CanSendOtp};
+module.exports = { FilterValues, ValidateEmail, ValidatePassword, GenerateSalt, GeneratePassword, GenerateUUID, FormatData, ComparePass, GenerateToken, ValidateSignature, CanSendOtp}

@@ -138,6 +138,9 @@ class UserService{
   async UserProfile(id){
     try{
         const existingUser = await this.repository.FindOneUser({id});
+        if(!existingUser){
+            throw new APIError("Profile dosen't exist", 404)
+        }
         const formattedData =  {
             id : existingUser.id,
             email : existingUser.email,
@@ -151,8 +154,22 @@ class UserService{
         }
         return FormatData(formattedData);
     } catch (e) {
+        console.log(e)
         throw new APIError(e, e.statusCode);
     }
+  }
+
+  // Send Otp
+
+  async FindUserForOtp(filter) {
+    try{
+        const user = await this.repository.FindOneUser({filter});
+        delete user["password"];
+        return user;
+    }catch (e) {
+        throw new APIError(e, e.statusCode);
+    }
+
   }
 
 
@@ -182,6 +199,7 @@ class UserService{
         }
 
         if(filterUpdates.password){
+            ValidatePassword(filterUpdates.password)
             const salt = await GenerateSalt();
             const userPassword = await GeneratePassword(
                 filterUpdates.password,
@@ -195,6 +213,16 @@ class UserService{
         delete user["password"];
         return user;
     } catch(e) {
+        throw new APIError(e, e.statusCode);
+    }
+
+  }
+
+
+  async DeleteUser(filter) {
+    try{
+        return this.repository.DeleteUserProfile(filter)
+    }catch(e){
         throw new APIError(e, e.statusCode);
     }
 

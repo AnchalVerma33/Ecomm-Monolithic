@@ -15,4 +15,5 @@ module.exports = (app) => {
 
     app.put("/updateProfile",Auth, userController.updateUserProfile);
 
+    app.delete("/deleteProfile", Auth, userController.deleteUserProfile)
 }

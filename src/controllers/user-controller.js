@@ -1,11 +1,14 @@
 const { RedisUtils } = require("../database/cache");
 const UserService = require("../services/user-service");
+const { CanSendOtp } = require("../utils/helpers");
+const SendEmail = require("../utils/mails");
 
 
 class UserController{
     constructor(){
         this.servcie = new UserService();
         this.redis = new RedisUtils();
+        this.mail = new SendEmail();
     }
 
     // Register User
@@ -57,8 +60,8 @@ class UserController{
     getUserProfile = async (req,res,next) => {
         try{
             const id = req.user.id;
-            var profile = await this.redis.RedisGET(id);
-            var from_cache = true;
+            let profile = await this.redis.RedisGET(id);
+            let from_cache = true;
 
             if(!profile){
                 const { data } = await this.servcie.UserProfile(id);
@@ -77,7 +80,7 @@ class UserController{
     }
 
 
-    
+
     // Update User
     updateUserProfile = async (req,res,next) => {
         try{
@@ -91,6 +94,47 @@ class UserController{
         }
     }
 
+
+    // SendOtp
+
+    sendOtp = async (req,res,next) => {
+        try{
+            const { email } = req.body;
+            const data = await CanSendOtp(this.redis, email);
+
+            if(!data.canSend){
+                return res.json({success : false, data: `Can't send otp until ${data.remainingTime} seconds.`})
+            }
+
+            const otp = await GenerateOtp();  
+
+            const message = `Thank you for using our Shopping App\n ONE TIME PASSWORD : ${otp}`;
+            
+            await this.mail.sendEmail(message);
+
+            await this.redis.RedisSET(email, otp, 60);
+
+            return res.json({success:true, data:"OTP successfully sent to email"}); 
+        }catch (e){
+            next(e);
+        }
+    }
+
+
+    // Delete Profile
+
+    deleteUserProfile = async(req, res, next) => {
+        try{
+            const data = req.user;
+            const {email, id} = data;
+            console.log(data);
+            const result = await this.servcie.DeleteUser({email});
+            await this.redis.RedisDEL(id);
+            return res.json({success:true, data:result});
+        }catch(e){
+            next(e);
+        }
+    }
 
 
     
