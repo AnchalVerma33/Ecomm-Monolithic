@@ -34,9 +34,9 @@ class ProductRepository {
   
   // All products
 
-  async ProductList(){
+  async ProductList(filters){
     try{
-      const prodList = await this.Product.findAll();
+      const prodList = await this.Product.findAll({where : filters});
       return prodList;
     }catch(e){
       throw new APIError(
@@ -98,6 +98,33 @@ class ProductRepository {
             STATUS_CODES.INTERNAL_ERROR,
             `Error while updating the product details ${e}`
         );
+    }
+
+  }
+
+  // bulk update 
+
+  async BulkUpdate(updatesArray){
+    try {
+      const updatedProducts = await this.Product.bulkUpdate(
+        updatesArray.map(( obj ) => ({
+          quantity: obj.noUnitsLeft,
+        })),
+        {
+          where: {
+            id: updatesArray.map(( obj ) => obj.productID),
+          },
+          returning: true, 
+        }
+      );
+
+      return updatedProducts[1]; 
+    } catch (e) {
+      throw new APIError(
+        "API Error",
+        STATUS_CODES.INTERNAL_ERROR,
+        `Error while updating the product details ${e}`
+    );
     }
 
   }

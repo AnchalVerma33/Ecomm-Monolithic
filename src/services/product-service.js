@@ -44,9 +44,9 @@ class ProductService{
         }
     }
 
-    async prodList(){
+    async prodList(filters){
         try{
-            return await this.repository.ProductList();
+            return await this.repository.ProductList(filters);
         }catch(e){
             throw new APIError(e, e.statusCode);
         }

@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { user } = require("./api");
-const { product } = require("./api");
+const { user, order, product } = require("./api");
 const ErrorHandler = require("./utils/errors/error-handler");
 
 module.exports = (app) => {
@@ -10,5 +9,6 @@ module.exports = (app) => {
   app.use(cors());
   user(app);
   product(app);
+  order(app);
   app.use(ErrorHandler);
 };

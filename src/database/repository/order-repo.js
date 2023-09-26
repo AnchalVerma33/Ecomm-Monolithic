@@ -1,123 +1,98 @@
 const { APIError, STATUS_CODES } = require("../../utils/errors/app-errors");
-const { Product } = require("../models");
-const { Op } = require("sequelize")
+const { Order } = require("../models");
 
-class ProductRepository {
+
+class OrderRepository {
   constructor() {
-    this.Product = new Product().schema;
+    this.Order = new Order().schema;
   }
 
-  // Find All Product by filter
+  // Find All Order by filter
 
-  async GetAll(filters) {
-    try {
-      const {productName, productID = ''} = filters;
-      console.log(productID);
-      const products = await this.Product.findAll({
-        where: {
-          [Op.or]: [
-            { productID: productID },
-            { productName: { [Op.iLike]: `%${productName}%` } },
-          ],
-        },
-      });
-      return products;
-    } catch (e) {
-      throw new APIError(
-        "API Error",
-        STATUS_CODES.INTERNAL_ERROR,
-        `Error while fetching prodcuts ${e}`
-      );
-    }
-  }
-
-  
-  // All products
-
-  async ProductList(){
+  async GetMany(filters){
     try{
-      const prodList = await this.Product.findAll();
-      return prodList;
+      const orderList = await this.Order.findAll({where : filters});
+      return orderList;
     }catch(e){
       throw new APIError(
         "API Error",
         STATUS_CODES.INTERNAL_ERROR,
-        `Error while fetching prodcut list ${e}`
+        `Error while fetching order list ${e}`
       );
     }
   }
 
-  // Find One Product By filters
+  // Find One Order By filters
 
   async GetOne(filters) {
     try {
-      const product = await this.Product.findOne({ where: filters });
-      return product.dataValues;
+      const order = await this.Order.findOne({ where: filters });
+      return order.dataValues;
     } catch (e) {
       throw new APIError(
         "API Error",
         STATUS_CODES.INTERNAL_ERROR,
-        `Error while fetching the product ${e}`
+        `Error while fetching the order ${e}`
       );
     }
   }
 
 
-  // Create a product 
+  // Create an order 
 
   async Create(data){
     try{
-        const product = await this.Product.create(data);
-        return product;
+        const order = await this.Order.create(data);
+        return order;
     }catch(e){
         throw new APIError(
             "API Error",
             STATUS_CODES.INTERNAL_ERROR,
-            `Error while creating the product ${e}`
+            `Error while creating the order ${e}`
         )
     }
   }
 
 
-  //Update products
+  //Update order
 
   async Update(id, updateDetails, returnUpdatedDetails=true){
     try{
-        const [updatedCount, updatedProducts] = await this.Product.update(
+        const [updatedCount, updatedOrder] = await this.Order.update(
             updateDetails,
             {
-                where : {productID : id},
+                where : {orderID : id},
                 returning : returnUpdatedDetails,
             }
         );
-        const product = updatedProducts[0].dataValues;
-        return product; 
+        const order = updatedOrder[0].dataValues;
+        return order; 
     } catch(e) {
         throw new APIError(
             "API Error",
             STATUS_CODES.INTERNAL_ERROR,
-            `Error while updating the product details ${e}`
+            `Error while updating the order details ${e}`
         );
     }
 
   }
 
 
-  // Delete product
+  // Delete order
 
   async Delete(filters){
     try{
-        const deletedProductCount = await this.Product.destroy({ where: filters });
-        return deletedProductCount;
+        const deleteOrderCount = await this.Order.destroy({ where: filters });
+        return deleteOrderCount;
     } catch(e) {
         throw new APIError(
             "API ERROR",
             STATUS_CODES.INTERNAL_ERROR,
-            `Error while deleting the product ${e}`
+            `Error while deleting the order ${e}`
         )
     }
   }
 
 }
 
-module.exports = ProductRepository;
+module.exports = OrderRepository;

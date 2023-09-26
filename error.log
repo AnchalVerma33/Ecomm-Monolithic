@@ -62,3 +62,6 @@
 [ [36m2023-12-22 00:41:21:4121[39m ]  [31mName : TypeError | Descriptiion : undefined | Status Code : undefined | IsOperational : undefined[39m
 [ [36m2023-12-22 00:43:54:4354[39m ]  [31mName : API Error: Error while fetching the product TypeError: Cannot read properties of null (reading 'dataValues') | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
 [ [36m2023-12-22 00:50:22:5022[39m ]  [31mName : API Error: Error while fetching the product TypeError: Cannot read properties of null (reading 'dataValues') | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-12-22 14:52:15:5215[39m ]  [31mName : SyntaxError: Unexpected token 'o', "[object Seq"... is not valid JSON | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-12-22 14:53:10:5310[39m ]  [31mName : SyntaxError: Unexpected token 'o', "[object Seq"... is not valid JSON | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-12-22 15:00:00:00[39m ]  [31mName : TypeError: this.productRepository.ProductList(...).map is not a function | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m

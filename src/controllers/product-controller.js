@@ -32,7 +32,7 @@ class ProductController{
     // Get Product List
     productList = async(req,res,next) => {
         try{
-            const data = await this.servcie.prodList();
+            const data = await this.servcie.prodList(req.query);
             return res.json({success : true, data})
         }catch(e){
             next(e);
