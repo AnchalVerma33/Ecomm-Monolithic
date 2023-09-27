@@ -12,7 +12,10 @@ const config = {
 	DB_PORT: process.env.DBPORT,
 	REDIS_PORT : process.env.REDIS_PORT,
 	REDIS_HOST : process.env.REDIS_HOST,
-	EMAIL_PASS : process.env.EMAIL_PASS
+	EMAIL_PASS : process.env.EMAIL_PASS,
+	EMAIL : process.env.EMAIL,
+	RAZORPAY_API_KEY : process.env.RAZORPAY_API_KEY,
+	RAZORPAY_API_SECRET : process.env.RAZORPAY_API_SECRET
 };
 
 module.exports = config;

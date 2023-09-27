@@ -159,20 +159,7 @@ class UserService{
     }
   }
 
-  // Send Otp
-
-  async FindUserForOtp(filter) {
-    try{
-        const user = await this.repository.FindOneUser({filter});
-        delete user["password"];
-        return user;
-    }catch (e) {
-        throw new APIError(e, e.statusCode);
-    }
-
-  }
-
-
+  
   // Update User
 
   async UpdateUser(id, updates) {

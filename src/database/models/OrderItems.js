@@ -34,6 +34,10 @@ class OrderItemsModel {
         itemPrice: {
           type: DataTypes.DECIMAL(10, 2),
         },
+        currency : {
+          type: DataTypes.STRING,
+          allowNull : false
+        },
         createdAt: {
           type: DataTypes.DATE,
           defaultValue: this.db.literal("CURRENT_TIMESTAMP"),

@@ -18,6 +18,75 @@ class OrderController{
         }
     }
 
+    cancelOrder = async(req,res,next) => {
+        try {
+            const data = await this.servcie.CancelOrder({ filters : req.params, user : req.user});
+            return res.json({success : true, data});
+        } catch(e){
+            next(e);
+        }
+    }
+
+
+    completeOrder = async(req,res,next) => {
+        try {
+            const { orderID, paymentID, transactionHash } = req.body;
+            const data = await this.servcie.CompleteOrder({ filters : { orderID }, user : req.user, details : { paymentID, transactionHash}});
+            return res.json({success : true, data});
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    getAllOrders = async(req,res,next) => {
+        try{
+            const filters = req.query;
+            filters["userID"] = req.user.id;
+            console.log(filters);
+            let infoLevel = "min";
+            if(filters.infoLevel === "max"){
+                infoLevel = "max";
+            }
+            delete filters.infoLevel;
+            const data = await this.servcie.GetAllOrders(filters, infoLevel);
+            return res.json({success : true, data});
+
+        }catch(e){
+            next(e);
+        }
+    }
+
+    getOneOrder = async(req,res,next) => {
+        try{
+            const filters = req.query;
+            filters["userID"] = req.user.id;
+            console.log(filters);
+            let infoLevel = "min";
+            if(filters.infoLevel === "max"){
+                infoLevel = "max";
+            }
+            delete filters.infoLevel;
+            const data = await this.servcie.GetOneOrder(filters, infoLevel);
+            return res.json({success : true, data});
+
+        }catch(e){
+            next(e);
+        }
+    }
+
+
+    verifyOrder = async(req,res,next) => {
+        try {
+            const { orderID } = req.body;
+            const user = req.user;
+            const data = await this.servcie.VerifyOrder({orderID, userID : user.id});
+            return res.json({success : true, data});
+        } catch (e) {
+            next(e);   
+        }
+
+    }
+
 
     
 }

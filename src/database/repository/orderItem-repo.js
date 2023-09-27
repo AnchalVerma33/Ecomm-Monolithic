@@ -38,7 +38,7 @@ class OrderItemsRepository {
   }
 
 
-  // Create an order 
+  // Create an bulk orderItems from order
 
   async Create(dataArray){
     try{

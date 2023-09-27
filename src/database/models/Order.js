@@ -49,12 +49,19 @@ class OrderModel {
         transactionID: {
           type: DataTypes.STRING(50), 
         },
+        paymentID: {
+          type: DataTypes.STRING(50), 
+        },
         transactionHash: {
           type: DataTypes.STRING(255), 
         },
         isTransactionVerified: {
           type: DataTypes.BOOLEAN,
           defaultValue: false, 
+        },
+        currency : {
+          type: DataTypes.STRING,
+          allowNull : false
         },
         createdAt: {
           type: DataTypes.DATE,

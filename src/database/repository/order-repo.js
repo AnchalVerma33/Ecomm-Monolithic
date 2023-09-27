@@ -27,6 +27,9 @@ class OrderRepository {
   async GetOne(filters) {
     try {
       const order = await this.Order.findOne({ where: filters });
+      if(!order){
+        return null
+      }
       return order.dataValues;
     } catch (e) {
       throw new APIError(

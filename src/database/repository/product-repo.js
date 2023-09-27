@@ -12,7 +12,7 @@ class ProductRepository {
   async GetAll(filters) {
     try {
       const {productName, productID = ''} = filters;
-      console.log(productID);
+
       const products = await this.Product.findAll({
         where: {
           [Op.or]: [
@@ -86,7 +86,7 @@ class ProductRepository {
         const [updatedCount, updatedProducts] = await this.Product.update(
             updateDetails,
             {
-                where : {productID : id},
+                where : {productID : String(id)},
                 returning : returnUpdatedDetails,
             }
         );
@@ -106,19 +106,16 @@ class ProductRepository {
 
   async BulkUpdate(updatesArray){
     try {
-      const updatedProducts = await this.Product.bulkUpdate(
-        updatesArray.map(( obj ) => ({
-          quantity: obj.noUnitsLeft,
-        })),
-        {
-          where: {
-            id: updatesArray.map(( obj ) => obj.productID),
-          },
-          returning: true, 
+      const updatesPromises = updatesArray.map((obj) => {
+        let tempObj = {
+          ...obj
         }
-      );
+        delete tempObj.productID
+        return  this.Update(obj.productID, tempObj);
+      })
 
-      return updatedProducts[1]; 
+      const result = await Promise.all(updatesPromises);
+      return result;
     } catch (e) {
       throw new APIError(
         "API Error",

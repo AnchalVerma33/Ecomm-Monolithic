@@ -10,7 +10,7 @@ class ProductService{
 
     async Add (data){
         try{
-            const { productName, price, quantity, productImage, productDescription} = data;
+            const { productName, price, quantity, productImage, productDescription, currency} = data;
             FilterValues(
                 [
                     productName,
@@ -28,7 +28,8 @@ class ProductService{
                     price,
                     quantity,
                     productImage,
-                    productDescription
+                    productDescription,
+                    currency
                 })
             return newProd;
         } catch(e) {

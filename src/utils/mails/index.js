@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const { EMAIL_PASS } = require("../../config")
+const { EMAIL_PASS, EMAIL } = require("../../config")
 
 class SendEmail{
     constructor() {
@@ -15,7 +15,7 @@ class SendEmail{
                 const transporter = nodemailer.createTransport({
                     service: 'Gmail',
                     auth: {
-                      user: 'vanchal964@gmail.com',
+                      user: EMAIL,
                       pass: EMAIL_PASS,
                     },
                   });

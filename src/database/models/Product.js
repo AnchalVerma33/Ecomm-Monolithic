@@ -33,6 +33,10 @@ class ProductModel {
           min: 0, 
         },
       },
+      currency : {
+        type: DataTypes.STRING,
+        allowNull : false
+      },
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: this.db.literal('CURRENT_TIMESTAMP'),
