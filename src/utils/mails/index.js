@@ -1,12 +1,12 @@
 const nodemailer = require("nodemailer");
 const { EMAIL_PASS, EMAIL } = require("../../config")
-
+console.log(EMAIL, EMAIL_PASS);
 class SendEmail{
     constructor() {
-        return new Promise(async(resolve,reject) => {
-            this.transporter = await this.CreateTransporter();
-            resolve(this.transporter);
-        }) 
+        // return new Promise(async(resolve,reject) => {
+        //     this.transporter = await this.CreateTransporter();
+        //     resolve(this.transporter);
+        // }) 
     }
 
     CreateTransporter(){
@@ -40,16 +40,17 @@ class SendEmail{
     //     }
     // }
 
-    sendEmail(message){
+    sendEmail(message, toMail){
         return new Promise(async(resolve,reject) => {
             try{
+                const transporter = await this.CreateTransporter();
                 const mailFormat = {
-                    from: 'vanchal965@gmail.com',
-                    to: 'workav33@gmail.com',
+                    from: EMAIL,
+                    to: toMail,
                     subject: 'Welcome to our Shopping App - Account Verification',
                     text: message,
                 }
-                const info = await this.transporter.sendMail(mailFormat);
+                const info = await transporter.sendMail(mailFormat);
                 resolve(info);
             }catch (e) {
                 reject(e);

@@ -15,5 +15,9 @@ module.exports = (app) => {
 
     app.put("/updateProfile",Auth, userController.updateUserProfile);
 
-    app.delete("/deleteProfile", Auth, userController.deleteUserProfile)
+    app.delete("/deleteProfile", Auth, userController.deleteUserProfile);
+
+    app.post("/sendOtp", userController.sendOtp);
+
+    app.get("/verifyOtp", userController.verifyOtp);
 }

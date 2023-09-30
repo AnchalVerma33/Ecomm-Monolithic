@@ -119,3 +119,11 @@
 [ [36m2023-12-24 22:20:08:208[39m ]  [31mName : TypeError: this.rzp.create is not a function: Internal Server Error | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
 [ [36m2023-12-24 23:31:55:3155[39m ]  [31mName : API Error: Error while creating the order SequelizeValidationError: notNull Violation: Orders.currency cannot be null | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
 [ [36m2023-12-24 23:35:08:358[39m ]  [31mName : API Error: Error while creating the order SequelizeValidationError: notNull Violation: Orders.currency cannot be null | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-12-25 01:28:23:2823[39m ]  [31mName : TypeError: this.mail.sendEmail is not a function | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-12-25 01:31:20:3120[39m ]  [31mName : TypeError: this.mail.sendEmail is not a function | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-12-25 01:34:39:3439[39m ]  [31mName : Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to[39m
+[31m535 5.7.8  https://support.google.com/mail/?p=BadCredentials w2-20020a654102000000b005c21c23180bsm5389567pgp.76 - gsmtp | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-12-25 01:40:41:4041[39m ]  [31mName : Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to[39m
+[31m535 5.7.8  https://support.google.com/mail/?p=BadCredentials qi10-20020a17090b274a00b0028b005bf19esm10956015pjb.34 - gsmtp | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m
+[ [36m2023-12-25 01:49:57:4957[39m ]  [31mName : Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to[39m
+[31m535 5.7.8  https://support.google.com/mail/?p=BadCredentials j26-20020a62b61a000000b006d3b7f40292sm1192270pff.19 - gsmtp | Descriptiion : undefined | Status Code : 500 | IsOperational : true[39m

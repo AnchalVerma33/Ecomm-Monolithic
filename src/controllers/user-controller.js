@@ -100,23 +100,22 @@ class UserController{
     sendOtp = async (req,res,next) => {
         try{
             const { email } = req.body;
-            const data = await CanSendOtp(this.redis, email);
-
-            if(!data.canSend){
-                return res.json({success : false, data: `Can't send otp until ${data.remainingTime} seconds.`})
-            }
-
-            const otp = await GenerateOtp();  
-
-            const message = `Thank you for using our Shopping App\n ONE TIME PASSWORD : ${otp}`;
-            
-            await this.mail.sendEmail(message);
-
-            await this.redis.RedisSET(email, otp, 60);
-
-            return res.json({success:true, data:"OTP successfully sent to email"}); 
+            const data = await this.servcie.SendOtp(email);
+            return res.json({success:true, data}); 
         }catch (e){
             next(e);
+        }
+    }
+
+    // Verify Otp
+
+    verifyOtp = async(req,res,next) => {
+        try {
+            const { email, otp } = req.query;
+            const data = await this.servcie.VerifyOtp(email, otp);
+            return res.json({success : true, data});
+        } catch (e) {
+            next(e); 
         }
     }
 

@@ -130,6 +130,22 @@ const GenerateHmacSha256 = (data, key) => {
   return digest;
 }
 
+const GenerateRandomPin = (length = 4) => {
+    if (length <= 0) {
+        throw new Error('Length should be greater than 0');
+    }
+    
+    const characters = '0123456789';
+    let otp = '';
+    
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        otp += characters.charAt(randomIndex);
+    }
+    return otp;
+    };
+      
+
 module.exports = {
   FilterValues,
   ValidateEmail,
@@ -142,5 +158,6 @@ module.exports = {
   GenerateToken,
   ValidateSignature,
   CanSendOtp,
-  GenerateHmacSha256
+  GenerateHmacSha256,
+  GenerateRandomPin
 };
