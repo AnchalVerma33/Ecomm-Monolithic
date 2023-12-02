@@ -1,13 +1,12 @@
-const { DataTypes } = require("sequelize");
-const { DB } = require("../connect");
-
+const { DataTypes } = require('sequelize');
+const { DB } = require('../connect');
 
 class CartModel {
   constructor() {
     this.db = DB.connection;
-    console.log("This is CartModel")
+    console.log('This is CartModel');
     this.schema = this.db.define(
-      "Cart",
+      'Cart',
       {
         id: {
           allowNull: false,
@@ -19,7 +18,7 @@ class CartModel {
           type: DataTypes.UUID,
           references: {
             model: 'Users',
-            key: "id",
+            key: 'id',
           },
           allowNull: false,
         },
@@ -27,7 +26,7 @@ class CartModel {
           type: DataTypes.UUID,
           references: {
             model: 'Products',
-            key: "productID",
+            key: 'productID',
           },
           allowNull: false,
         },
@@ -37,9 +36,9 @@ class CartModel {
         quantity: {
           type: DataTypes.INTEGER,
           validate: {
-            min: 1, 
+            min: 1,
           },
-          defaultValue : 1,
+          defaultValue: 1,
         },
         created_at: {
           type: DataTypes.DATE,
@@ -59,16 +58,14 @@ class CartModel {
           },
         },
         indexes: [
-            {
-              unique: false, 
-              fields: ["userID"],
-            },
-          ],
-      }
+          {
+            unique: false,
+            fields: ['userID'],
+          },
+        ],
+      },
     );
   }
 }
 
-
-
-module.exports = CartModel
+module.exports = CartModel;

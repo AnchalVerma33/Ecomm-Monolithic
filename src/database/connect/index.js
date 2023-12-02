@@ -1,45 +1,38 @@
-const { Sequelize } = require("sequelize");
+const { Sequelize } = require('sequelize');
 
 const {
-	DB_NAME,
-    DB_USERNAME,
-	DB_PASSWORD,
-	DB_HOST,
-	DB_PORT
-} = require("../../config");
+  DB_NAME,
+  DB_USERNAME,
+  DB_PASSWORD,
+  DB_HOST,
+  DB_PORT,
+} = require('../../config');
 
-console.log(DB_NAME,
-    DB_USERNAME,
-	DB_PASSWORD,
-	DB_HOST,)
+console.log(
+  DB_NAME,
+  DB_USERNAME,
+  DB_PASSWORD,
+  DB_HOST,
+);
 
+const DB = {};
 
-
-let DB = {};
-
-const connectDB = () => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
-				host: DB_HOST,
-				port: DB_PORT,
-				dialect: "postgres",
-				logging: false,
-			});
-			await sequelize.authenticate();
-			console.log("Database connected".cyan);
-			DB["connection"] = sequelize;
-			resolve(sequelize);
-		} catch (e) {
-			console.log(e);
-			reject(`Error while connecting db ${e}`);
-		}
-	});
-};
+const connectDB = () => new Promise(async (resolve, reject) => {
+  try {
+    const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
+      host: DB_HOST,
+      port: DB_PORT,
+      dialect: 'postgres',
+      logging: false,
+    });
+    await sequelize.authenticate();
+    console.log('Database connected'.cyan);
+    DB.connection = sequelize;
+    resolve(sequelize);
+  } catch (e) {
+    console.log(e);
+    reject(`Error while connecting db ${e}`);
+  }
+});
 
 module.exports = { connectDB, DB };
-
-
-
-
-

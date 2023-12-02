@@ -1,23 +1,23 @@
 const { DataTypes } = require('sequelize');
-const { DB } = require("../connect");
+const { DB } = require('../connect');
 
 class ProductModel {
   constructor() {
     this.db = DB.connection;
-    console.log("This is Product")
+    console.log('This is Product');
     this.schema = this.db.define('Product', {
       productID: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
-        unique : true
+        unique: true,
       },
       productName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       productImage: {
-        type: DataTypes.STRING, 
+        type: DataTypes.STRING,
       },
       productDescription: {
         type: DataTypes.STRING,
@@ -30,12 +30,12 @@ class ProductModel {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          min: 0, 
+          min: 0,
         },
       },
-      currency : {
+      currency: {
         type: DataTypes.STRING,
-        allowNull : false
+        allowNull: false,
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -47,14 +47,14 @@ class ProductModel {
         defaultValue: this.db.literal('CURRENT_TIMESTAMP'),
         allowNull: false,
       },
-    },{
+    }, {
       hooks: {
         beforeUpdate: (instance) => {
-          instance.updatedAt = new Date(); 
+          instance.updatedAt = new Date();
         },
       },
     });
   }
 }
 
-  module.exports = ProductModel;
+module.exports = ProductModel;

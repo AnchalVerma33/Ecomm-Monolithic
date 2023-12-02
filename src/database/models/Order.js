@@ -1,25 +1,24 @@
-const { DataTypes } = require("sequelize");
-const { DB } = require("../connect");
-
+const { DataTypes } = require('sequelize');
+const { DB } = require('../connect');
 
 class OrderModel {
   constructor() {
     this.db = DB.connection;
-    console.log("This is Order")
+    console.log('This is Order');
     this.schema = this.db.define(
-      "Orders",
+      'Orders',
       {
         orderID: {
           type: DataTypes.STRING,
           primaryKey: true,
           allowNull: false,
-          unique : true
+          unique: true,
         },
         userID: {
           type: DataTypes.STRING,
           references: {
             model: 'Users',
-            key: "id",
+            key: 'id',
           },
         },
         orderDate: {
@@ -30,11 +29,11 @@ class OrderModel {
         },
         orderStatus: {
           type: DataTypes.ENUM(
-            "Initiated",
-            "Completed",
-            "Failed",
-            "Verified",
-            "Cancelled"
+            'Initiated',
+            'Completed',
+            'Failed',
+            'Verified',
+            'Cancelled',
           ),
         },
         paymentMethod: {
@@ -47,37 +46,37 @@ class OrderModel {
           type: DataTypes.DATE,
         },
         transactionID: {
-          type: DataTypes.STRING(50), 
+          type: DataTypes.STRING(50),
         },
         paymentID: {
-          type: DataTypes.STRING(50), 
+          type: DataTypes.STRING(50),
         },
         transactionHash: {
-          type: DataTypes.STRING(255), 
+          type: DataTypes.STRING(255),
         },
         isTransactionVerified: {
           type: DataTypes.BOOLEAN,
-          defaultValue: false, 
+          defaultValue: false,
         },
-        currency : {
+        currency: {
           type: DataTypes.STRING,
-          allowNull : false
+          allowNull: false,
         },
         createdAt: {
           type: DataTypes.DATE,
-          defaultValue: this.db.literal("CURRENT_TIMESTAMP"),
+          defaultValue: this.db.literal('CURRENT_TIMESTAMP'),
         },
         updatedAt: {
           type: DataTypes.DATE,
           defaultValue: this.db.literal(
-            "CURRENT_TIMESTAMP"
+            'CURRENT_TIMESTAMP',
           ),
         },
       },
       {
         hooks: {
           beforeUpdate: (instance) => {
-            instance.updatedAt = new Date(); 
+            instance.updatedAt = new Date();
           },
         },
       },

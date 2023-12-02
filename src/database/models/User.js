@@ -1,12 +1,12 @@
-const { DB } = require("../connect");
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
+const { DB } = require('../connect');
 
 class UserModel {
   constructor() {
     this.db = DB.connection;
-    console.log("This is User")
+    console.log('This is User');
     this.schema = this.db.define(
-      "User",
+      'User',
       {
         id: {
           type: DataTypes.STRING,
@@ -29,8 +29,8 @@ class UserModel {
         },
         phoneNumber: {
           type: DataTypes.STRING(355),
-          unique : true,
-          allowNull : false
+          unique: true,
+          allowNull: false,
         },
         isValidated: {
           type: DataTypes.BOOLEAN,
@@ -39,20 +39,20 @@ class UserModel {
         gender: {
           type: DataTypes.STRING(255),
         },
-        salt :{
-          type : DataTypes.STRING(255),
+        salt: {
+          type: DataTypes.STRING(255),
         },
-        address:{
-          type : DataTypes.STRING(355),
+        address: {
+          type: DataTypes.STRING(355),
         },
         createdAt: {
           type: DataTypes.DATE,
-          defaultValue: this.db.literal("CURRENT_TIMESTAMP"),
+          defaultValue: this.db.literal('CURRENT_TIMESTAMP'),
           allowNull: false,
         },
         updatedAt: {
           type: DataTypes.DATE,
-          defaultValue: this.db.literal("CURRENT_TIMESTAMP"),
+          defaultValue: this.db.literal('CURRENT_TIMESTAMP'),
           allowNull: false,
         },
       },
@@ -64,15 +64,14 @@ class UserModel {
           },
         },
         indexes: [
-            {
-              unique: true, 
-              fields: ["email"],
-            },
-          ],
-      }
+          {
+            unique: true,
+            fields: ['email'],
+          },
+        ],
+      },
     );
   }
 }
-
 
 module.exports = UserModel;

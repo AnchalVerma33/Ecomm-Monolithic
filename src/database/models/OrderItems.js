@@ -1,31 +1,31 @@
-const { DataTypes } = require("sequelize");
-const { DB } = require("../connect");
+const { DataTypes } = require('sequelize');
+const { DB } = require('../connect');
 
 class OrderItemsModel {
   constructor() {
     this.db = DB.connection;
     this.schema = this.db.define(
-      "OrderItems",
+      'OrderItems',
       {
         orderItemID: {
           type: DataTypes.STRING,
           primaryKey: true,
           allowNull: false,
-          unique : true
+          unique: true,
         },
         orderID: {
           type: DataTypes.STRING,
           allowNull: false,
           references: {
             model: 'Orders',
-            key: "orderID",
+            key: 'orderID',
           },
         },
         productID: {
           type: DataTypes.STRING,
           references: {
             model: 'Products',
-            key: "productID",
+            key: 'productID',
           },
         },
         quantity: {
@@ -34,18 +34,18 @@ class OrderItemsModel {
         itemPrice: {
           type: DataTypes.DECIMAL(10, 2),
         },
-        currency : {
+        currency: {
           type: DataTypes.STRING,
-          allowNull : false
+          allowNull: false,
         },
         createdAt: {
           type: DataTypes.DATE,
-          defaultValue: this.db.literal("CURRENT_TIMESTAMP"),
+          defaultValue: this.db.literal('CURRENT_TIMESTAMP'),
         },
         updatedAt: {
           type: DataTypes.DATE,
           defaultValue: this.db.literal(
-            "CURRENT_TIMESTAMP"
+            'CURRENT_TIMESTAMP',
           ),
         },
       },
@@ -55,7 +55,7 @@ class OrderItemsModel {
             instance.updatedAt = new Date();
           },
         },
-      }
+      },
     );
   }
 }
