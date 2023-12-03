@@ -1,8 +1,5 @@
-const Redis = require('ioredis');
-const {
-  REDIS_HOST,
-  REDIS_PORT,
-} = require('../../config');
+const Redis = require("ioredis");
+const { REDIS_HOST, REDIS_PORT } = require("../../config");
 
 class RedisUtils {
   constructor() {
@@ -16,13 +13,13 @@ class RedisUtils {
       showFriendlyErrorStack: true,
       retryStrategy: (times) => {
         if (times <= 3) {
-          console.log('Retrying connection...');
+          console.log("Retrying connection...");
           return 1000;
         }
         return null;
       },
     });
-    console.log('Redis connected'.magenta);
+    // console.log("Redis connected".magenta);
     return redisClient;
   }
 
@@ -42,7 +39,7 @@ class RedisUtils {
       try {
         let data = null;
         if (nx) {
-          data = await this.redis.set(key, value, 'EX', time);
+          data = await this.redis.set(key, value, "EX", time);
         } else {
           data = await this.redis.set(key, value);
         }

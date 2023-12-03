@@ -1,5 +1,5 @@
-const { RedisUtils } = require('../database/cache');
-const { OrderService } = require('../services');
+const { RedisUtils } = require("../database/cache");
+const { OrderService } = require("../services");
 
 class OrderController {
   constructor() {
@@ -20,7 +20,10 @@ class OrderController {
 
   cancelOrder = async (req, res, next) => {
     try {
-      const data = await this.servcie.CancelOrder({ filters: req.params, user: req.user });
+      const data = await this.servcie.CancelOrder({
+        filters: req.params,
+        user: req.user,
+      });
       return res.json({ success: true, data });
     } catch (e) {
       next(e);
@@ -30,7 +33,11 @@ class OrderController {
   completeOrder = async (req, res, next) => {
     try {
       const { orderID, paymentID, transactionHash } = req.body;
-      const data = await this.servcie.CompleteOrder({ filters: { orderID }, user: req.user, details: { paymentID, transactionHash } });
+      const data = await this.servcie.CompleteOrder({
+        filters: { orderID },
+        user: req.user,
+        details: { paymentID, transactionHash },
+      });
       return res.json({ success: true, data });
     } catch (e) {
       next(e);
@@ -41,10 +48,9 @@ class OrderController {
     try {
       const filters = req.query;
       filters.userID = req.user.id;
-      console.log(filters);
-      let infoLevel = 'min';
-      if (filters.infoLevel === 'max') {
-        infoLevel = 'max';
+      let infoLevel = "min";
+      if (filters.infoLevel === "max") {
+        infoLevel = "max";
       }
       delete filters.infoLevel;
       const data = await this.servcie.GetAllOrders(filters, infoLevel);
@@ -58,10 +64,9 @@ class OrderController {
     try {
       const filters = req.query;
       filters.userID = req.user.id;
-      console.log(filters);
-      let infoLevel = 'min';
-      if (filters.infoLevel === 'max') {
-        infoLevel = 'max';
+      let infoLevel = "min";
+      if (filters.infoLevel === "max") {
+        infoLevel = "max";
       }
       delete filters.infoLevel;
       const data = await this.servcie.GetOneOrder(filters, infoLevel);

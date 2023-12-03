@@ -1,6 +1,6 @@
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 
-dotenv.config({ path: '.env' });
+dotenv.config({ path: ".env" });
 
 const config = {
   APP_SECRET: process.env.APP_SECRET,

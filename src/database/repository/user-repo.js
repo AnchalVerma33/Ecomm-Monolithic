@@ -2,9 +2,9 @@ const {
   APIError,
   BadRequestError,
   STATUS_CODES,
-} = require('../../utils/errors/app-errors');
-const connectDB = require('../connect');
-const { User } = require('../models');
+} = require("../../utils/errors/app-errors");
+const connectDB = require("../connect");
+const { User } = require("../models");
 
 class UserRepository {
   constructor() {
@@ -38,7 +38,7 @@ class UserRepository {
       return newUser;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while adding user ${e}`,
       );
@@ -53,7 +53,7 @@ class UserRepository {
       return count;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while fetching Users count ${e}`,
       );
@@ -71,7 +71,7 @@ class UserRepository {
       return user.dataValues;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while fetching Users count ${e}`,
       );
@@ -93,7 +93,7 @@ class UserRepository {
       return user;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while updating the user details ${e}`,
       );
@@ -102,12 +102,11 @@ class UserRepository {
 
   async DeleteUserProfile(filter) {
     try {
-      console.log('Delete User \n');
       await this.User.destroy({ where: filter });
       return { success: true };
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while deleting user :  ${e}`,
       );

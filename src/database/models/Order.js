@@ -1,12 +1,11 @@
-const { DataTypes } = require('sequelize');
-const { DB } = require('../connect');
+const { DataTypes } = require("sequelize");
+const { DB } = require("../connect");
 
 class OrderModel {
   constructor() {
     this.db = DB.connection;
-    console.log('This is Order');
     this.schema = this.db.define(
-      'Orders',
+      "Orders",
       {
         orderID: {
           type: DataTypes.STRING,
@@ -17,8 +16,8 @@ class OrderModel {
         userID: {
           type: DataTypes.STRING,
           references: {
-            model: 'Users',
-            key: 'id',
+            model: "Users",
+            key: "id",
           },
         },
         orderDate: {
@@ -29,11 +28,11 @@ class OrderModel {
         },
         orderStatus: {
           type: DataTypes.ENUM(
-            'Initiated',
-            'Completed',
-            'Failed',
-            'Verified',
-            'Cancelled',
+            "Initiated",
+            "Completed",
+            "Failed",
+            "Verified",
+            "Cancelled",
           ),
         },
         paymentMethod: {
@@ -64,13 +63,11 @@ class OrderModel {
         },
         createdAt: {
           type: DataTypes.DATE,
-          defaultValue: this.db.literal('CURRENT_TIMESTAMP'),
+          defaultValue: this.db.literal("CURRENT_TIMESTAMP"),
         },
         updatedAt: {
           type: DataTypes.DATE,
-          defaultValue: this.db.literal(
-            'CURRENT_TIMESTAMP',
-          ),
+          defaultValue: this.db.literal("CURRENT_TIMESTAMP"),
         },
       },
       {

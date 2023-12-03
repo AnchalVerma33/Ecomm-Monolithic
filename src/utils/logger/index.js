@@ -1,10 +1,8 @@
-const winston = require('winston');
+const winston = require("winston");
 
 const { createLogger, format, transports } = winston;
-const {
-  combine, timestamp, printf, colorize,
-} = format;
-const winstonTimestampColorize = require('winston-timestamp-colorize');
+const { combine, timestamp, printf, colorize } = format;
+const winstonTimestampColorize = require("winston-timestamp-colorize");
 
 const levels = {
   error: 0,
@@ -15,32 +13,32 @@ const levels = {
 };
 
 const colors = {
-  error: 'red',
-  warn: 'yellow',
-  info: 'green',
-  http: 'blue',
-  debug: 'white',
-  timestamp: 'cyan',
+  error: "red",
+  warn: "yellow",
+  info: "green",
+  http: "blue",
+  debug: "white",
+  timestamp: "cyan",
 };
 
 winston.addColors(colors);
 
 const level = () => {
-  const env = process.env.NODE_ENV || 'development';
-  const isDevelopment = env === 'development';
-  return isDevelopment ? 'debug' : 'warn';
+  const env = process.env.NODE_ENV || "development";
+  const isDevelopment = env === "development";
+  return isDevelopment ? "debug" : "warn";
 };
 
 const logFormat = combine(
-  timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+  timestamp({ format: "YYYY-MM-DD HH:mm:ss:ms" }),
   colorize({ all: true }),
-  winstonTimestampColorize({ color: 'cyan' }),
+  winstonTimestampColorize({ color: "cyan" }),
   printf((info) => `[ ${info.timestamp} ]  ${info.message}`),
 );
 
 const transport = [
   new transports.Console(),
-  new transports.File({ filename: 'error.log' }),
+  new transports.File({ filename: "error.log" }),
 ];
 
 const logger = createLogger({
@@ -48,7 +46,6 @@ const logger = createLogger({
   levels,
   format: logFormat,
   transports: transport,
-
 });
 
 module.exports = { logger };

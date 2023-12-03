@@ -31,7 +31,7 @@ class APIError extends AppError {
   constructor(
     name,
     statusCode = STATUS_CODES.INTERNAL_ERROR,
-    description = 'Internal Server Error',
+    description = "Internal Server Error",
     isOperational = true,
   ) {
     super(name, statusCode, description, isOperational);
@@ -41,12 +41,9 @@ class APIError extends AppError {
 // 400 Error
 
 class BadRequestError extends AppError {
-  constructor(
-    description = 'Bad request',
-    logingErrorResponse,
-  ) {
+  constructor(description = "Bad request", logingErrorResponse) {
     super(
-      'NOT FOUND',
+      "NOT FOUND",
       STATUS_CODES.BAD_REQUEST,
       description,
       true,
@@ -58,12 +55,9 @@ class BadRequestError extends AppError {
 
 // 400
 class ValidationError extends AppError {
-  constructor(
-    description = 'Validation Error',
-    errorStack,
-  ) {
+  constructor(description = "Validation Error", errorStack) {
     super(
-      'BAD REQUEST',
+      "BAD REQUEST",
       STATUS_CODES.BAD_REQUEST,
       description,
       true,
@@ -74,9 +68,9 @@ class ValidationError extends AppError {
 
 // 403 error
 class AuthorizationError extends AppError {
-  constructor(description = 'Authorization Error', errorStack) {
+  constructor(description = "Authorization Error", errorStack) {
     super(
-      'UN_AUTHORISED',
+      "UN_AUTHORISED",
       STATUS_CODES.UN_AUTHORISED,
       description,
       true,

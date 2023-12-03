@@ -1,6 +1,6 @@
-const { ProductRepository } = require('../database/repository');
-const { APIError } = require('../utils/errors/app-errors');
-const { GenerateUUID, FilterValues } = require('../utils/helpers');
+const { ProductRepository } = require("../database/repository");
+const { APIError } = require("../utils/errors/app-errors");
+const { GenerateUUID, FilterValues } = require("../utils/helpers");
 
 class ProductService {
   constructor() {
@@ -10,29 +10,24 @@ class ProductService {
   async Add(data) {
     try {
       const {
-        productName, price, quantity, productImage, productDescription, currency,
+        productName,
+        price,
+        quantity,
+        productImage,
+        productDescription,
+        currency,
       } = data;
-      FilterValues(
-        [
-          productName,
-          price,
-          quantity,
-        ],
-        [null, ''],
-        data,
-      );
+      FilterValues([productName, price, quantity], [null, ""], data);
       const productID = GenerateUUID();
-      const newProd = await this.repository.Create(
-        {
-          productID,
-          productName,
-          price,
-          quantity,
-          productImage,
-          productDescription,
-          currency,
-        },
-      );
+      const newProd = await this.repository.Create({
+        productID,
+        productName,
+        price,
+        quantity,
+        productImage,
+        productDescription,
+        currency,
+      });
       return newProd;
     } catch (e) {
       throw new APIError(e, e.statusCode);

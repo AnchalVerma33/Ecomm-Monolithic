@@ -1,10 +1,10 @@
-const crypto = require('crypto');
-const bcrypt = require('bcrypt');
-const { v4: uuid } = require('uuid');
-const jwt = require('jsonwebtoken');
-const { BadRequestError, AuthorizationError } = require('../errors/app-errors');
-const { APP_SECRET } = require('../../config');
-require('dotenv').config({ path: './config/.env' });
+const crypto = require("crypto");
+const bcrypt = require("bcrypt");
+const { v4: uuid } = require("uuid");
+const jwt = require("jsonwebtoken");
+const { BadRequestError, AuthorizationError } = require("../errors/app-errors");
+const { APP_SECRET } = require("../../config");
+require("dotenv").config({ path: "./config/.env" });
 
 const FilterValues = (fields, not_allowed_values, obj) => {
   try {
@@ -14,16 +14,20 @@ const FilterValues = (fields, not_allowed_values, obj) => {
     if (!not_allowed_values) {
       not_allowed_values = [];
     }
-    for (const field of fields) for (const value of not_allowed_values) if (obj[field] === value) throw new Error(`${field} cannot contain ${value} `);
+    for (const field of fields)
+      for (const value of not_allowed_values)
+        if (obj[field] === value)
+          throw new Error(`${field} cannot contain ${value} `);
   } catch (e) {
     throw new BadRequestError(e);
   }
 };
 
 const ValidateEmail = (email) => {
-  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const emailRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   if (!emailRegex.test(email)) {
-    throw new BadRequestError('Invalid Email');
+    throw new BadRequestError("Invalid Email");
   }
 };
 
@@ -32,13 +36,13 @@ const ValidatePassword = (password) => {
   const upperCase = /[A-Z]/g;
   const lowerCase = /[a-z]/g;
   if (
-    !password
-    || password.length < 8
-    || !number.test(password)
-    || !upperCase.test(password)
-    || !lowerCase.test(password)
+    !password ||
+    password.length < 8 ||
+    !number.test(password) ||
+    !upperCase.test(password) ||
+    !lowerCase.test(password)
   ) {
-    throw new BadRequestError('Invalid Password');
+    throw new BadRequestError("Invalid Password");
   }
 };
 
@@ -60,14 +64,14 @@ const GeneratePassword = async (password, salt) => {
 
 const GenerateUUID = () => {
   const id = uuid();
-  return id.replace(/-/g, '');
+  return id.replace(/-/g, "");
 };
 
 const FormatData = (data) => {
   if (data) {
     return { data };
   }
-  throw new Error('Data Not found!');
+  throw new Error("Data Not found!");
 };
 
 const ComparePass = async (enteredPass, savedPass, salt) => {
@@ -81,7 +85,7 @@ const ComparePass = async (enteredPass, savedPass, salt) => {
 const GenerateToken = async (payload) => {
   try {
     const { APP_SECRET } = process.env;
-    return jwt.sign(payload, APP_SECRET, { expiresIn: '5d' });
+    return jwt.sign(payload, APP_SECRET, { expiresIn: "5d" });
   } catch (e) {
     throw new Error(`Unable to generate token ${e}`);
   }
@@ -90,45 +94,46 @@ const GenerateToken = async (payload) => {
 const ValidateSignature = async (req) => {
   try {
     const { APP_SECRET } = process.env;
-    const signature = req.get('Authorization');
+    const signature = req.get("Authorization");
 
     if (signature) {
-      const payload = jwt.verify(signature.split(' ')[1], APP_SECRET);
+      const payload = jwt.verify(signature.split(" ")[1], APP_SECRET);
       req.user = payload;
       return req.user;
     }
-    throw new AuthorizationError('No token found');
+    throw new AuthorizationError("No token found");
   } catch (e) {
     throw new AuthorizationError(`User Not Authorized ${e}`);
   }
 };
 
-const CanSendOtp = async (redisClient, key) => new Promise(async (resolve, reject) => {
-  try {
-    const data = {};
-    const ttl = await redisClient.RedisTTL(key);
-    data.remainingTime = ttl;
-    data.canSend = !!(ttl == 0 || ttl == -2);
-    resolve(data);
-  } catch (e) {
-    reject(e);
-  }
-});
+const CanSendOtp = async (redisClient, key) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const data = {};
+      const ttl = await redisClient.RedisTTL(key);
+      data.remainingTime = ttl;
+      data.canSend = !!(ttl == 0 || ttl == -2);
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
 
 const GenerateHmacSha256 = (data, key) => {
-  const hmac = crypto.createHmac('sha256', key);
+  const hmac = crypto.createHmac("sha256", key);
   hmac.update(data);
-  const digest = hmac.digest('hex');
+  const digest = hmac.digest("hex");
   return digest;
 };
 
 const GenerateRandomPin = (length = 4) => {
   if (length <= 0) {
-    throw new Error('Length should be greater than 0');
+    throw new Error("Length should be greater than 0");
   }
 
-  const characters = '0123456789';
-  let otp = '';
+  const characters = "0123456789";
+  let otp = "";
 
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);

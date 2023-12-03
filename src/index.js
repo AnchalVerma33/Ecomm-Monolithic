@@ -1,15 +1,18 @@
-const express = require('express');
-const {
-  PORT,
-} = require('./config');
-require('colors');
+const express = require("express");
+const { PORT } = require("./config");
+require("colors");
 
-const { connectDB } = require('./database/connect');
+const { connectDB } = require("./database/connect");
 const {
-  Models, User, Product, Order, OrderItems, Cart,
-} = require('./database/models');
-const expressApp = require('./express-engine');
-const SendEmail = require('./utils/mails');
+  Models,
+  User,
+  Product,
+  Order,
+  OrderItems,
+  Cart,
+} = require("./database/models");
+const expressApp = require("./express-engine");
+const SendEmail = require("./utils/mails");
 
 const StartServer = async () => {
   try {
@@ -19,15 +22,15 @@ const StartServer = async () => {
     await models.migrate(false);
     expressApp(app);
     const mail = await new SendEmail();
-    console.log(mail.options);
-    app.listen(PORT, () => {
-      console.log(`Customer server running to port ${PORT}`.yellow);
-      console.log(`http://localhost:${PORT}`.yellow);
-    }).on('error', (err) => {
-      throw new Error(err);
-    });
+    app
+      .listen(PORT, () => {
+        console.log(`Customer server running to port ${PORT}`.yellow);
+        console.log(`http://localhost:${PORT}`.yellow);
+      })
+      .on("error", (err) => {
+        throw new Error(err);
+      });
   } catch (e) {
-    console.log(e);
     process.exit(0);
   }
 };

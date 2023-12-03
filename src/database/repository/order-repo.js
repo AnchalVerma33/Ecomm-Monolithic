@@ -1,5 +1,5 @@
-const { APIError, STATUS_CODES } = require('../../utils/errors/app-errors');
-const { Order } = require('../models');
+const { APIError, STATUS_CODES } = require("../../utils/errors/app-errors");
+const { Order } = require("../models");
 
 class OrderRepository {
   constructor() {
@@ -14,7 +14,7 @@ class OrderRepository {
       return orderList;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while fetching order list ${e}`,
       );
@@ -32,7 +32,7 @@ class OrderRepository {
       return order.dataValues;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while fetching the order ${e}`,
       );
@@ -47,7 +47,7 @@ class OrderRepository {
       return order;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while creating the order ${e}`,
       );
@@ -69,7 +69,7 @@ class OrderRepository {
       return order;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while updating the order details ${e}`,
       );
@@ -84,7 +84,7 @@ class OrderRepository {
       return deleteOrderCount;
     } catch (e) {
       throw new APIError(
-        'API ERROR',
+        "API ERROR",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while deleting the order ${e}`,
       );

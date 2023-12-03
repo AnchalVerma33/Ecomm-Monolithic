@@ -1,5 +1,5 @@
-const { APIError, STATUS_CODES } = require('../../utils/errors/app-errors');
-const { OrderItems } = require('../models');
+const { APIError, STATUS_CODES } = require("../../utils/errors/app-errors");
+const { OrderItems } = require("../models");
 
 class OrderItemsRepository {
   constructor() {
@@ -14,7 +14,7 @@ class OrderItemsRepository {
       return orderItemsList;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while fetching order list ${e}`,
       );
@@ -29,7 +29,7 @@ class OrderItemsRepository {
       return order.dataValues;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while fetching the order ${e}`,
       );
@@ -44,7 +44,7 @@ class OrderItemsRepository {
       return createdOrderItems;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while creating the order ${e}`,
       );
@@ -66,7 +66,7 @@ class OrderItemsRepository {
       return order;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while updating the order details ${e}`,
       );
@@ -77,11 +77,13 @@ class OrderItemsRepository {
 
   async Delete(filters) {
     try {
-      const deleteOrderCount = await this.OrderItems.destroy({ where: filters });
+      const deleteOrderCount = await this.OrderItems.destroy({
+        where: filters,
+      });
       return deleteOrderCount;
     } catch (e) {
       throw new APIError(
-        'API ERROR',
+        "API ERROR",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while deleting the order ${e}`,
       );

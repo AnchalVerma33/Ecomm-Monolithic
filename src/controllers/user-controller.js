@@ -1,7 +1,7 @@
-const { RedisUtils } = require('../database/cache');
-const UserService = require('../services/user-service');
-const { CanSendOtp } = require('../utils/helpers');
-const SendEmail = require('../utils/mails');
+const { RedisUtils } = require("../database/cache");
+const UserService = require("../services/user-service");
+const { CanSendOtp } = require("../utils/helpers");
+const SendEmail = require("../utils/mails");
 
 class UserController {
   constructor() {
@@ -13,14 +13,8 @@ class UserController {
   // Register User
   register = async (req, res, next) => {
     try {
-      const {
-        firstName,
-        lastName,
-        phoneNumber,
-        email,
-        password,
-        gender,
-      } = req.body;
+      const { firstName, lastName, phoneNumber, email, password, gender } =
+        req.body;
 
       const { data } = await this.servcie.SignUp({
         firstName,
@@ -39,10 +33,7 @@ class UserController {
   // Login User
   login = async (req, res, next) => {
     try {
-      const {
-        email,
-        password,
-      } = req.body;
+      const { email, password } = req.body;
 
       const data = await this.servcie.Login({
         email,
@@ -120,7 +111,6 @@ class UserController {
     try {
       const data = req.user;
       const { email, id } = data;
-      console.log(data);
       const result = await this.servcie.DeleteUser({ email });
       await this.redis.RedisDEL(id);
       return res.json({ success: true, data: result });

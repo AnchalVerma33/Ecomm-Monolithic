@@ -1,5 +1,5 @@
-const { AuthorizationError } = require('../../utils/errors/app-errors');
-const { ValidateSignature } = require('../../utils/helpers');
+const { AuthorizationError } = require("../../utils/errors/app-errors");
+const { ValidateSignature } = require("../../utils/helpers");
 
 const Auth = async (req, res, next) => {
   try {

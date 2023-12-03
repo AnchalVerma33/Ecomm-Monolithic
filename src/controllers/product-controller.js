@@ -1,5 +1,5 @@
-const { RedisUtils } = require('../database/cache');
-const { ProductService } = require('../services');
+const { RedisUtils } = require("../database/cache");
+const { ProductService } = require("../services");
 
 class ProductController {
   constructor() {
@@ -20,7 +20,7 @@ class ProductController {
   // find all products by name filter
   findProduct = async (req, res, next) => {
     try {
-      const { productName, productID = '' } = req.body;
+      const { productName, productID = "" } = req.body;
       const data = await this.servcie.Find({ productName, productID });
       return res.json({ success: true, data });
     } catch (e) {

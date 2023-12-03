@@ -1,12 +1,11 @@
-const { DataTypes } = require('sequelize');
-const { DB } = require('../connect');
+const { DataTypes } = require("sequelize");
+const { DB } = require("../connect");
 
 class UserModel {
   constructor() {
     this.db = DB.connection;
-    console.log('This is User');
     this.schema = this.db.define(
-      'User',
+      "User",
       {
         id: {
           type: DataTypes.STRING,
@@ -47,12 +46,12 @@ class UserModel {
         },
         createdAt: {
           type: DataTypes.DATE,
-          defaultValue: this.db.literal('CURRENT_TIMESTAMP'),
+          defaultValue: this.db.literal("CURRENT_TIMESTAMP"),
           allowNull: false,
         },
         updatedAt: {
           type: DataTypes.DATE,
-          defaultValue: this.db.literal('CURRENT_TIMESTAMP'),
+          defaultValue: this.db.literal("CURRENT_TIMESTAMP"),
           allowNull: false,
         },
       },
@@ -66,7 +65,7 @@ class UserModel {
         indexes: [
           {
             unique: true,
-            fields: ['email'],
+            fields: ["email"],
           },
         ],
       },

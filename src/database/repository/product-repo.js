@@ -1,6 +1,6 @@
-const { Op } = require('sequelize');
-const { APIError, STATUS_CODES } = require('../../utils/errors/app-errors');
-const { Product } = require('../models');
+const { Op } = require("sequelize");
+const { APIError, STATUS_CODES } = require("../../utils/errors/app-errors");
+const { Product } = require("../models");
 
 class ProductRepository {
   constructor() {
@@ -11,7 +11,7 @@ class ProductRepository {
 
   async GetAll(filters) {
     try {
-      const { productName, productID = '' } = filters;
+      const { productName, productID = "" } = filters;
 
       const products = await this.Product.findAll({
         where: {
@@ -24,7 +24,7 @@ class ProductRepository {
       return products;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while fetching prodcuts ${e}`,
       );
@@ -39,7 +39,7 @@ class ProductRepository {
       return prodList;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while fetching prodcut list ${e}`,
       );
@@ -54,7 +54,7 @@ class ProductRepository {
       return product.dataValues;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while fetching the product ${e}`,
       );
@@ -69,7 +69,7 @@ class ProductRepository {
       return product;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while creating the product ${e}`,
       );
@@ -91,7 +91,7 @@ class ProductRepository {
       return product;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while updating the product details ${e}`,
       );
@@ -114,7 +114,7 @@ class ProductRepository {
       return result;
     } catch (e) {
       throw new APIError(
-        'API Error',
+        "API Error",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while updating the product details ${e}`,
       );
@@ -125,11 +125,13 @@ class ProductRepository {
 
   async Delete(filters) {
     try {
-      const deletedProductCount = await this.Product.destroy({ where: filters });
+      const deletedProductCount = await this.Product.destroy({
+        where: filters,
+      });
       return deletedProductCount;
     } catch (e) {
       throw new APIError(
-        'API ERROR',
+        "API ERROR",
         STATUS_CODES.INTERNAL_ERROR,
         `Error while deleting the product ${e}`,
       );

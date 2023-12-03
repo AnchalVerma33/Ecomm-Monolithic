@@ -1,6 +1,6 @@
-const { error } = require('winston');
-const { logger } = require('../logger');
-const { AppError } = require('./app-errors');
+const { error } = require("winston");
+const { logger } = require("../logger");
+const { AppError } = require("./app-errors");
 
 class ErrorLog {
   constructor() {}
@@ -8,7 +8,7 @@ class ErrorLog {
   async logError(err) {
     logger.log({
       private: true,
-      level: 'error',
+      level: "error",
       message: `Name : ${err.name} | Descriptiion : ${err.description} | Status Code : ${err.statusCode} | IsOperational : ${err.isOperational}`,
     });
   }
